@@ -1,5 +1,4 @@
 import { Component } from "@angular/core";
-import {activityService  } from "@time-master/network";
 
 @Component({
   selector: "app-root",
@@ -9,7 +8,7 @@ import {activityService  } from "@time-master/network";
 export class AppComponent {
   title = "time-master";
 
-  greet() {
-    console.log(activityService.getActivity(""));
+  async greet() {
+   
   }
 }

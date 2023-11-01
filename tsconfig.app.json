@@ -5,5 +5,5 @@
     "outDir": "./out-tsc/app"
   },
   "files": ["src/main.ts"],
-  "include": ["src/**/*.d.ts", "packages/network/lib/index.ts"]
+  "include": ["src/**/*.d.ts"],
 }

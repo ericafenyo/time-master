@@ -1,11 +1,9 @@
-import "dotenv/config";
+// require('dotenv').config()
 import axios from "axios";
 
-function createAxiosInstance() {
+export function createAxiosInstance() {
   const instance = axios.create({
-    baseURL: process.env["API_SERVER_URL"],
+    baseURL: "http://localhost:3000",
   });
   return instance;
 }
-
-export const http = createAxiosInstance();

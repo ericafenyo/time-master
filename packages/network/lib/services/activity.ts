@@ -1,3 +1,7 @@
+import { createAxiosInstance } from "../core/http";
+
+const http = createAxiosInstance();
+
 /**
  * Activity is a core element used to track time for different tasks.
  */
@@ -50,6 +54,7 @@ export type Activity = {
 
 export interface ActivityService {
   getActivity(id: string): Activity;
+  getActivities(): Promise<Activity[]>;
 }
 
 const getActivity = (id: string): Activity => {
@@ -66,8 +71,15 @@ const getActivity = (id: string): Activity => {
   };
 };
 
+const getActivities = async (): Promise<Activity[]> => {
+  const response = await http.get("/activities");
+  console.log(response.data);
+
+  return [];
+};
+
 function create(): ActivityService {
-  const instance: ActivityService = { getActivity };
+  const instance: ActivityService = { getActivity, getActivities };
 
   return instance;
 }
