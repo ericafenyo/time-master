@@ -75,7 +75,7 @@ const getActivities = async (): Promise<Activity[]> => {
   const response = await http.get("/activities");
   console.log(response.data);
 
-  return [];
+  return response.data;
 };
 
 function create(): ActivityService {
