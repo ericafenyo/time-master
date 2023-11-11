@@ -1,0 +1,37 @@
+{
+  "name": "@packages/services",
+  "version": "0.0.0",
+  "description": "A package for handling network requests",
+  "author": "ericafenyo <ericafenyo@yahoo.com>",
+  "homepage": "https://github.com/ericafenyo/time-master-management#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "types": "./dist/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib",
+    "build"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericafenyo/time-master-management.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "node ./__tests__/network.test.js"
+  },
+  "bugs": {
+    "url": "https://github.com/ericafenyo/time-master-management/issues"
+  },
+  "dependencies": {
+    "axios": "^1.5.1",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "typescript": "^5.2.2"
+  }
+}
