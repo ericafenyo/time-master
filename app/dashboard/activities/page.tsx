@@ -1,6 +1,10 @@
+import Link from "next/link";
+
 const Activities = () => {
     return (
-        <div>Activities</div>
+        <div>
+            <Link href="/dashboard/activities/new">New</Link>
+        </div>
     )
 }
 
