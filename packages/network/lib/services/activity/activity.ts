@@ -1,3 +1,5 @@
+import { http } from "../../core/http";
+
 /**
  * Activity is a core element used to track time for different tasks.
  */
@@ -48,11 +50,24 @@ export type Activity = {
   updatedAt: Date;
 };
 
+export type ActivityCreateRequest = {
+  /**
+   * Name of the activity (e.g.Cycling)
+   */
+  name: string;
+
+  /**
+   * Description or details about the activity
+   */
+  description: string;
+};
+
 export interface ActivityService {
-  getActivity(id: string): Activity;
+  fetch(activityId: string): Activity;
+  create(request: ActivityCreateRequest): Promise<Activity>;
 }
 
-const getActivity = (id: string): Activity => {
+const fetch = (activityId: string): Activity => {
   return {
     id: "6f43c39a-6da0-11ee-b962-0242ac120002",
     name: "Setup Initial Environment",
@@ -66,10 +81,23 @@ const getActivity = (id: string): Activity => {
   };
 };
 
-function create(): ActivityService {
-  const instance: ActivityService = { getActivity };
+const create = async (request: ActivityCreateRequest): Promise<Activity> => {
+  const response = await http.post("/activities", request);
 
-  return instance;
-}
+  console.log(response.data);
+  
 
-export const service: ActivityService = create();
+  return {
+    id: "6f43c39a-6da0-11ee-b962-0242ac120002",
+    name: "Setup Initial Environment",
+    description: "Set up the development environment for the project",
+    estimation: 3600 * 120,
+    startTime: new Date(),
+    endTime: new Date(),
+    projectId: "b654144c-6da0-11ee-b962-0242ac120002",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+};
+
+export const service: ActivityService = { fetch, create };

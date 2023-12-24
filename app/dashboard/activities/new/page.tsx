@@ -1,80 +1,54 @@
 'use client'
-import Icon from "@/app/components/Icon"
-import { Box, Button, Container, DropdownMenu, Flex, Section, Text, TextField } from "@radix-ui/themes"
+
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+
+import { useForm, SubmitHandler } from "react-hook-form"
+import { useRouter } from 'next/navigation'
+
+import { service } from "@packages/services/dist/services/activity"
+
+
+
+type Inputs = {
+  name: string;
+  description: string;
+}
 
 const CreateActivity = () => {
+  const { register, handleSubmit } = useForm<Inputs>()
+  const router = useRouter()
 
-    return (
-        <Section className="bg-white">
-            <Container size="1">
-                <h1>Create Activity</h1>
-                <form action="">
-                    <div className="mb-2">
-                        <TextField.Input variant="soft" color="gray" placeholder="Activity name" />
-                        <Text>Please enter an activity name</Text>
-                    </div>
-                    <div className="mb-2"><TextField.Input variant="soft" color="gray" placeholder="Description" /> </div>
-                    <div className="mb-2"><TextField.Input variant="soft" color="gray" placeholder="Estimation" /> </div>
-                    <div className='m-4'>
-                        <span>Use the format: 2w 4d 6h 45m</span>
-                        <ul className='mt-0'>
-                            <li>w = weeks</li>
-                            <li>d = days</li>
-                            <li>h = hours</li>
-                            <li>m = minutes</li>
-                        </ul>
-                    </div>
-                    <Flex justify="between">
-                        <Box>
-                            <DropdownMenu.Root>
-                                <DropdownMenu.Trigger>
-                                    <Button variant="soft">
-                                        Add Project
-                                        <Icon name="chevron-down" strokeWidth="2" size="16" />
-                                    </Button>
-                                </DropdownMenu.Trigger>
-                                <DropdownMenu.Content>
-                                    <DropdownMenu.Item>Share</DropdownMenu.Item>
-                                    <DropdownMenu.Item>Add to favorites</DropdownMenu.Item>
-                                </DropdownMenu.Content>
-                            </DropdownMenu.Root>
-                        </Box>
-                        <Box>
-                            <DropdownMenu.Root>
-                                <DropdownMenu.Trigger>
-                                    <Button variant="soft">
-                                        Add Tags
-                                        <Icon name="chevron-down" strokeWidth="2" size="16" />
-                                    </Button>
-                                </DropdownMenu.Trigger>
-                                <DropdownMenu.Content>
-                                    <DropdownMenu.Item>Share</DropdownMenu.Item>
-                                    <DropdownMenu.Item>Add to favorites</DropdownMenu.Item>
-                                </DropdownMenu.Content>
-                            </DropdownMenu.Root>
-                        </Box>
-                        <Box>
-                            <DropdownMenu.Root>
-                                <DropdownMenu.Trigger>
-                                    <Button variant="soft">
-                                        Add Clients
-                                        <Icon name="chevron-down" strokeWidth="2" size="16" />
-                                    </Button>
-                                </DropdownMenu.Trigger>
-                                <DropdownMenu.Content>
-                                    <DropdownMenu.Item>Share</DropdownMenu.Item>
-                                    <DropdownMenu.Item>Add to favorites</DropdownMenu.Item>
-                                </DropdownMenu.Content>
-                            </DropdownMenu.Root>
-                        </Box>
-                    </Flex>
-                    <div className="my-4">
-                        <Button type="submit" variant="soft">Create activity</Button>
-                    </div>
-                </form>
-            </Container>
-        </Section >
-    )
+  const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
+    await service.create(data);
+    router.replace("/dashboard/activities")
+  }
+
+  return (
+    <section className="bg-white">
+      <div className="container max-w-md">
+
+        <form onSubmit={handleSubmit(onSubmit)}>
+
+          <Label htmlFor="name">Activity name</Label>
+          <div className="py-2">
+            <Input placeholder="Please enter an activity name"  {...register("name")} />
+          </div>
+
+          <div className="py-2">
+            <Label htmlFor="description">Description</Label>
+            <Input placeholder="Please enter a description" {...register("description")} />
+          </div>
+
+          <div className="py-2">
+            <Button type="submit" className="w-full">Create activity</Button>
+          </div>
+        </form>
+
+      </div>
+    </section >
+  )
 }
 
 export default CreateActivity

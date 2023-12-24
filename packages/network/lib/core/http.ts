@@ -3,7 +3,7 @@ import axios from "axios";
 
 function createAxiosInstance() {
   const instance = axios.create({
-    baseURL: process.env["API_SERVER_URL"],
+    baseURL: "http://localhost:8080",
   });
   return instance;
 }
