@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios";
 import { http } from "../../core/http";
 
 /**
@@ -63,29 +64,19 @@ export type ActivityCreateRequest = {
 };
 
 export interface ActivityService {
-  fetch(activityId: string): Activity;
+  fetch(activityId: string): Promise<Activity[]>;
   create(request: ActivityCreateRequest): Promise<Activity>;
 }
 
-const fetch = (activityId: string): Activity => {
-  return {
-    id: "6f43c39a-6da0-11ee-b962-0242ac120002",
-    name: "Setup Initial Environment",
-    description: "Set up the development environment for the project",
-    estimation: 3600 * 120,
-    startTime: new Date(),
-    endTime: new Date(),
-    projectId: "b654144c-6da0-11ee-b962-0242ac120002",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  };
+const fetch = async (activityId: string): Promise<Activity[]> => {
+  const response: AxiosResponse<Activity[]> = await http.get("/activities");
+  return response.data;
 };
 
 const create = async (request: ActivityCreateRequest): Promise<Activity> => {
   const response = await http.post("/activities", request);
 
   console.log(response.data);
-  
 
   return {
     id: "6f43c39a-6da0-11ee-b962-0242ac120002",
